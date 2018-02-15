@@ -3,6 +3,7 @@ package sashimipos;
 import java.io.File;
 import java.sql.*;
 import java.util.LinkedHashMap;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -39,6 +40,9 @@ public class GUI extends javax.swing.JFrame {
         stockTableModel = new CartTableModel(stock, new String[]{"Image", "Name", "Price", "Quantity available"});
         initComponents();
         
+        cartTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        stockTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         stockTableModel.addRow(a);
         stockTableModel.addRow(o);
         stockTableModel.addRow(c);
@@ -101,10 +105,10 @@ public class GUI extends javax.swing.JFrame {
             totalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(totalPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(84, 84, 84))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         totalPanelLayout.setVerticalGroup(
             totalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,19 +174,19 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(itemSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(addBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(removeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(addBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(removeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(itemSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(totalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator1)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +202,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(cartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(itemSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(195, 195, 195)
                         .addComponent(addBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeBtn)))
@@ -222,7 +226,7 @@ public class GUI extends javax.swing.JFrame {
         // query the database to get information on item "itemName" and create the Item object from this info
         Item item = new Item(imgFolder + itemName.toLowerCase() + ".jpg",itemName,80,200);
         cartTableModel.addRow(item);
-        totalLabel.setText(String.valueOf(cartTableModel.getCart().getTotal()));
+        //totalLabel.setText(String.valueOf(cartTableModel.getCart().getTotal()));
         
 //        String selected = (String) itemSelector.getSelectedItem();
 //        int rows = itemTableModel.getRowCount();
@@ -254,9 +258,12 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSelectorActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
-        Item selection = stockTableModel.getItemAt(stockTable.getSelectedRow());
+        Item selection = cartTableModel.getItemAt(cartTable.getSelectedRow());
         if(selection == null) return;
         cartTableModel.removeRow(selection);
+        stockTableModel.addRow(selection);
+        cartTable.clearSelection();
+        totalLabel.setText(String.valueOf(cartTableModel.getCart().getTotal()));
     }//GEN-LAST:event_removeBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
@@ -268,6 +275,7 @@ public class GUI extends javax.swing.JFrame {
         stockTableModel.removeRow(selection);
         
         stockTable.clearSelection();
+        totalLabel.setText(String.valueOf(cartTableModel.getCart().getTotal()));
     }//GEN-LAST:event_addBtnActionPerformed
 
     /**
