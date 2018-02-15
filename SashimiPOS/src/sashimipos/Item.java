@@ -16,10 +16,10 @@ public class Item {
     private Icon icon;
     private String name;
     private int price;
-    private int weight;
+    private float weight;
 
-    public Item(String picPath, String name, int price, int weight){
-        icon = new ImageIcon(picPath);
+    public Item(String picPath, String name, int price, float weight){
+        this.icon = new ImageIcon(picPath);
         this.name = name;
         this.price = price;
         this.weight = weight;
@@ -49,7 +49,7 @@ public class Item {
         this.price = price;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 

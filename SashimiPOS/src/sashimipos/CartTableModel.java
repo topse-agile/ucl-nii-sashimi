@@ -1,7 +1,6 @@
 package sashimipos;
 
 
-import java.util.LinkedHashMap;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -10,14 +9,13 @@ public class CartTableModel extends AbstractTableModel {
     private Cart cart;
     private String[] header;
 
-    public CartTableModel(Cart cart) { // linkedhashmap to retain order
+    public CartTableModel(Cart cart, String[] header) { // linkedhashmap to retain order
         this.cart = cart;
-        header = new String [] {"Picture", "Item", "Price", "Amount"};
-        
+        this.header = header;
     }
 
     @Override
-    public int getRowCount() {
+    public int getRowCount(){
         return cart.size();
     }
 
@@ -31,6 +29,11 @@ public class CartTableModel extends AbstractTableModel {
         fireTableRowsInserted(0,cart.size());
     }
 
+    public void removeRow(Item item){
+        cart.removeItem(item);
+        fireTableRowsInserted(0,cart.size());
+    }
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 

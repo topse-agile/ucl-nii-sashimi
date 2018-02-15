@@ -16,8 +16,13 @@ public class Cart {
     private int total;
     
     public Cart(){
-        items = new LinkedHashMap<>();
-        total = 0;
+        this.items = new LinkedHashMap<>();
+        this.total = 0;
+    }
+    
+    public Cart(LinkedHashMap<Item, Integer> items){
+        this.items = items;
+        this.total = 0;
     }
     
     public void removeItem(Item item){
