@@ -71,7 +71,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         totalLabel = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        itemSelector = new javax.swing.JComboBox<>();
         jSeparator3 = new javax.swing.JSeparator();
         cartPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -125,13 +124,6 @@ public class GUI extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        itemSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Apple", "Orange", "Cheese" }));
-        itemSelector.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSelectorActionPerformed(evt);
-            }
-        });
-
         cartTable.setModel(cartTableModel);
         cartTable.setRowHeight(60);
         jScrollPane2.setViewportView(cartTable);
@@ -144,9 +136,7 @@ public class GUI extends javax.swing.JFrame {
         );
         cartPanelLayout.setVerticalGroup(
             cartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cartPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
         );
 
         addBtn.setText("Add");
@@ -179,8 +169,7 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(addBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(removeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(itemSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(removeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -195,17 +184,16 @@ public class GUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(13, 13, 13)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator2))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(itemSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(195, 195, 195)
                         .addComponent(addBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeBtn)))
@@ -220,53 +208,18 @@ public class GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSelectorActionPerformed
-        
-        // the item names in the dropdown should be from the database
-        
-        String itemName = (String) itemSelector.getSelectedItem();
-        
-        // query the database to get information on item "itemName" and create the Item object from this info
-        Item item = new Item(imgFolder + itemName.toLowerCase() + ".jpg",itemName,80,200);
-        cartTableModel.addRow(item);
-        //totalLabel.setText(String.valueOf(cartTableModel.getCart().getTotal()));
-        
-//        String selected = (String) itemSelector.getSelectedItem();
-//        int rows = itemTableModel.getRowCount();
-//        int rowToUpdate = -1;
-//        for(int i = 0; i < rows; i++){
-//            String cell = (String) itemTableModel.getValueAt(i,1);
-//            if(cell.equalsIgnoreCase(selected)){
-//                rowToUpdate = i;
-//                break;
-//            }
-//        }
-//        
-//        if(rowToUpdate == -1){
-//            // add to cart
-//        }else{ // update cart
-//            int amount = Integer.parseInt(((String) itemTableModel.getValueAt(rowToUpdate,3)).substring(1)) + 1;
-//            itemTableModel.setValueAt("x" + amount, rowToUpdate, 3);
-//        }
-//
-//        int price = Integer.parseInt((String) itemTableModel.getValueAt(rowToUpdate,2));
-//        String currentTotal = totalLabel.getText();
-//        String newTotal = String.valueOf(price + Integer.parseInt(currentTotal));
-//
-//        
-//        totalLabel.setText(newTotal);
-        
-        // updateprice
-        
-    }//GEN-LAST:event_itemSelectorActionPerformed
-
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         Item selection = cartTableModel.getItemAt(cartTable.getSelectedRow());
         if(selection == null) return;
         cartTableModel.removeRow(selection);
         stockTableModel.addRow(selection);
         cartTable.clearSelection();
+        
+        Cart cart = cartTableModel.getCart();
+        int selectedIndex = stockTable.getSelectedRow() - cart.size();
+        cartTable.clearSelection();
         totalLabel.setText(String.valueOf(cartTableModel.getCart().getTotal()));
+        cartTable.setRowSelectionInterval(selectedIndex-1,selectedIndex-1);
     }//GEN-LAST:event_removeBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
@@ -331,7 +284,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton addBtn;
     private javax.swing.JPanel cartPanel;
     private javax.swing.JTable cartTable;
-    private javax.swing.JComboBox<String> itemSelector;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
