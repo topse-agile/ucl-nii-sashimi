@@ -24,14 +24,19 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         Item a = new Item(imgFolder + "Apple".toLowerCase() + ".jpg","Apple",80,333);
-        Item o = new Item(imgFolder + "Orange".toLowerCase() + ".jpg","Orange",80,200);
-        Item c = new Item(imgFolder + "Cheese".toLowerCase() + ".jpg","Cheese",80,140);
+        Item o = new Item(imgFolder + "Orange".toLowerCase() + ".jpg","Orange",200,200);
+        Item c = new Item(imgFolder + "Cheese".toLowerCase() + ".jpg","Cheese",310,140);
+        Item c1 = new Item(imgFolder + "Blueberry".toLowerCase() + ".jpg","Muffin",130,140);
+        Item c2= new Item(imgFolder + "Muffin".toLowerCase() + ".jpg","Orangina",81,140);
+        Item c3 = new Item(imgFolder + "Sausage".toLowerCase() + ".jpg","Sausage",130,140);
         
         LinkedHashMap<Item, Integer> map = new LinkedHashMap<>();
         map.put(a,3);
         map.put(o,12);
         map.put(c,34);
-        
+        map.put(c1,23);
+        map.put(c2,3);
+        map.put(c3,312);
         
         
         Cart stock = new Cart(map); // load items and their remaining quantity from database here
@@ -46,8 +51,6 @@ public class GUI extends javax.swing.JFrame {
         stockTableModel.addRow(a);
         stockTableModel.addRow(o);
         stockTableModel.addRow(c);
-
-
         
     }
 
@@ -274,8 +277,10 @@ public class GUI extends javax.swing.JFrame {
         Cart stock = stockTableModel.getCart();
         stockTableModel.removeRow(selection);
         
+        int selectedIndex = stockTable.getSelectedRow() - stock.size();
         stockTable.clearSelection();
         totalLabel.setText(String.valueOf(cartTableModel.getCart().getTotal()));
+        stockTable.setRowSelectionInterval(selectedIndex-1,selectedIndex-1);
     }//GEN-LAST:event_addBtnActionPerformed
 
     /**
