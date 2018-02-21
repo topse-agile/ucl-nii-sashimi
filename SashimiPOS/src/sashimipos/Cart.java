@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 public class Cart {
     private LinkedHashMap<Item, Integer> items;
     private int total;
+    private float weight;
     
     public Cart(){
         this.items = new LinkedHashMap<>();
@@ -36,11 +37,13 @@ public class Cart {
         
         int price = item.getPrice();
         
+        this.weight -= item.getWeight();
         total -= price;
     }
 
     public void addItem(Item item){
         int price = item.getPrice();
+        this.weight += item.getWeight();
         if(items.containsKey(item)){
             int count = items.get(item);
             count += 1;
@@ -62,6 +65,12 @@ public class Cart {
         return null;
     }
     
+    public void empty(){
+        this.total = 0;
+        this.total = 0;
+        this.items.clear();
+    }
+    
     public int size(){
         return items.size();
     }
@@ -80,6 +89,10 @@ public class Cart {
 
     public int getTotal() {
         return total;
+    }
+    
+    public float getWeight(){
+        return this.weight;
     }
 
     public void setTotal(int total) {
