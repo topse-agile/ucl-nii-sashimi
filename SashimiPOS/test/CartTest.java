@@ -5,10 +5,6 @@
  */
 
 import static org.hamcrest.CoreMatchers.is;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import sashimipos.Cart;
@@ -23,22 +19,6 @@ public class CartTest {
     
     public CartTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
@@ -48,9 +28,9 @@ public class CartTest {
         Cart cart = new Cart();
         int applePrice = 80;
         int orangePrice = 100;
-        Item apple = new Item("apple.jpg","Apple",applePrice,250);
-        Item apple2 = new Item("apple.jpg","Apple",applePrice,250);
-        Item orange = new Item("orange.jpg", "Orange", orangePrice, 200);
+        Item apple = new Item(1,"apple.jpg","Apple",applePrice,250);
+        Item apple2 = new Item(2,"apple.jpg","Apple",applePrice,250);
+        Item orange = new Item(3,"orange.jpg", "Orange", orangePrice, 200);
         
         cart.addItem(apple);
         assertThat(cart.getTotal(), is(applePrice));
@@ -67,9 +47,9 @@ public class CartTest {
         Cart cart = new Cart();
         int applePrice = 80;
         int orangePrice = 100;
-        Item apple = new Item("apple.jpg","Apple",applePrice,250);
-        Item apple2 = new Item("apple.jpg","Apple",applePrice,250);
-        Item orange = new Item("orange.jpg", "Orange", orangePrice, 200);
+        Item apple = new Item(1,"apple.jpg","Apple",applePrice,250);
+        Item apple2 = new Item(2,"apple.jpg","Apple",applePrice,250);
+        Item orange = new Item(3,"orange.jpg", "Orange", orangePrice, 200);
         
         cart.addItem(apple);
         cart.addItem(orange);
@@ -90,9 +70,9 @@ public class CartTest {
         Cart cart = new Cart();
         int applePrice = 80;
         int orangePrice = 100;
-        Item apple = new Item("apple.jpg","Apple",applePrice,250);
-        Item apple2 = new Item("apple.jpg","Apple",applePrice,250);
-        Item orange = new Item("orange.jpg", "Orange", orangePrice, 200);
+        Item apple = new Item(1,"apple.jpg","Apple",applePrice,250);
+        Item apple2 = new Item(2,"apple.jpg","Apple",applePrice,250);
+        Item orange = new Item(3,"orange.jpg", "Orange", orangePrice, 200);
         
         cart.addItem(apple);
         cart.addItem(orange);
@@ -106,7 +86,8 @@ public class CartTest {
         cart.removeItem(apple);
         assertThat(cart.size(), is(1));
         
-        
+        cart.removeItem(orange);
+        assertThat(cart.size(), is(0));
     }      
     
     
