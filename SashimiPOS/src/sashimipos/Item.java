@@ -13,16 +13,22 @@ import javax.swing.ImageIcon;
  * @author dani_
  */
 public class Item {
+    private int id;
     private Icon icon;
     private String name;
     private int price;
     private float weight;
 
-    public Item(String picPath, String name, int price, float weight){
+    public Item(int id, String picPath, String name, int price, float weight){
+        this.id = id;
         this.icon = new ImageIcon(picPath);
         this.name = name;
         this.price = price;
         this.weight = weight;
+    }
+    
+    public int getId(){
+        return id;
     }
     
     public Icon getIcon() {
