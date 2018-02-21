@@ -2,7 +2,6 @@ package sashimipos;
 
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 public class CartTableModel extends AbstractTableModel {
 
@@ -12,6 +11,11 @@ public class CartTableModel extends AbstractTableModel {
     public CartTableModel(Cart cart, String[] header) { // linkedhashmap to retain order
         this.cart = cart;
         this.header = header;
+    }
+    
+    public void emptyCart(){
+        this.cart.empty();
+        fireTableRowsInserted(0,0);
     }
 
     @Override
